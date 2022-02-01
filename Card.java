@@ -56,7 +56,20 @@ public class Card {
         this.playable = playable;
     }
     // METHODS
-    public static void toString(){
+    public String toString(){
         System.out.println("Card Color: "+this.color);
+        System.out.println("Card Rank: "+this.rank);
+        System.out.println("Card Symbol: "+this.symbol);
+        System.out.println("Card Value: "+this.value);
+        System.out.println("Is Card Playable?: "+this.playable);
+        return "";
+    }
+    public void equals(Card card1, Card card2){
+        if(card1.getValue()==card2.getValue()){
+            System.out.println("They are equal");
+        }
+        else{
+            System.out.println("They aren't equal");
+        }
     }
 }
