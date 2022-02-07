@@ -6,8 +6,12 @@ public class Deck {
     private int cardsPerSuit=0;
     private boolean aceHigh=false;
     private int aceValue=0;
+    private String color="";
+    private String symbol="";
+    private String rank="";
     // CONSTRUCTORS
     public Deck() {
+        this.cards=new Card[52];
         for(int i=0;i<52;i++){
             this.cards[i]=new Card();
         }
@@ -22,6 +26,7 @@ public class Deck {
         else{
             this.aceValue=this.cardsPerSuit;
         }
+        makeDeck(this.suitNumber, this.cardsPerSuit, this.aceHigh);
     }
     // ACCESSORS
     public int getCardAmount() {
@@ -48,54 +53,50 @@ public class Deck {
         // Shuffle this.cards in a random order
     }
     private Card[] makeDeck(int suitNumber, int cardsPerSuit,boolean aceHigh){
-        Deck newDeck= new Deck(suitNumber, cardsPerSuit, aceHigh);
-        Card[] deck={};
-        for(int l=0;l<suitNumber;l++){
-            String color="";
-            String symbol="";
-            String rank="";
-            if(suitNumber%2==0){
-                color="black";
-                if(suitNumber%4==0){
-                    symbol="club";
+        cards=new Card[suitNumber*cardsPerSuit];
+        for(int l=1;l<=suitNumber;l++){
+            if(l==1 || l==2){
+                this.color="black";
+                if(l==1){
+                    this.symbol="club";
                 }
-                else{
-                    symbol="spade";
+                else if(l==2){
+                    this.symbol="spade";
                 }
             }
-            else{
-                color="red";
-                if(suitNumber%3==0){
-                    symbol="diamond";
+            else if(l==3 || l==4){
+                this.color="red";
+                if(l==3){
+                    this.symbol="diamond";
                 }
-                else{
-                    symbol="heart";
+                else if(l==4){
+                    this.symbol="heart";
                 }
             }
-            for(int a=0;a<=cardsPerSuit;a++){
+            for(int a=0;a<this.cards.length;a++){
                 if(aceHigh==true){
                     int value=1;
                     for(int n=0;n<cardsPerSuit;n++){
                         if(n<cardsPerSuit-4){
                             value++;
-                            rank="value";
-                            this.cards[n]=new Card(color, rank, symbol, a, true);                            
+                            this.rank=value+"";
+                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);                            
                         }
                         else if(n==cardsPerSuit-4){
-                            rank="jack";
-                            this.cards[n]=new Card(color, rank, symbol, a, true);
+                            this.rank="jack";
+                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
                         }
                         else if(n==cardsPerSuit-3){
-                            rank="queen";
-                            this.cards[n]=new Card(color, rank, symbol, a, true);
+                            this.rank="queen";
+                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
                         }
                         else if(n==cardsPerSuit-2){
-                            rank="king";
-                            this.cards[n]=new Card(color, rank, symbol, a, true);
+                            this.rank="king";
+                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
                         }
                         else if(n==cardsPerSuit-1){
-                            rank="ace";
-                            this.cards[n]=new Card(color, rank, symbol, a, true);
+                            this.rank="ace";
+                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
                         }
                     }
                 }
@@ -103,36 +104,37 @@ public class Deck {
                 int value2=1;
                 for(int p=0;p<cardsPerSuit;p++){
                     if(p==0){
-                        rank="ace";
-                        this.cards[p]=new Card(color, rank, symbol, a, true);
+                        this.rank="ace";
+                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
                     }
                     else if(p<cardsPerSuit-3){
                         value2++;
-                        this.cards[p]=new Card(color, rank, symbol, a, true);
+                        this.rank=value2+"";
+                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
                     }
                     else if(p==cardsPerSuit-3){
-                        rank="jack";
-                        this.cards[p]=new Card(color, rank, symbol, a, true);
+                        this.rank="jack";
+                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
                     }
                     else if(p==cardsPerSuit-2){
-                        rank="queen";
-                        this.cards[p]=new Card(color, rank, symbol, a, true);
+                        this.rank="queen";
+                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
                     }
                     else if(p==cardsPerSuit-1){
-                        rank="king";
-                        this.cards[p]=new Card(color, rank, symbol, a, true);
+                        this.rank="king";
+                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
                     }
-
                 }
             }                
             }
-
-            deck=cards;
     }
-    return deck;
+    System.out.println(this.cards);
+    return this.cards;
 }
     public String toString(){
-        System.out.print(makeDeck(suitNumber, cardsPerSuit, aceHigh));
+        for(int o=0;o<this.cards.length;o++){
+            System.out.print(this.cards[o]);
+        }
         return "";
     }
 }
