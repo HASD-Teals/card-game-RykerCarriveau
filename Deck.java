@@ -42,7 +42,7 @@ public class Deck {
     }
 
     // METHODS
-    public void shuffleCards(Deck changing) {
+    public void shuffleCards() {
         Card save;
         for(int k=0;k<this.cards.length;k++){
             int random=(int)Math.floor(Math.random()*(this.cards.length));
@@ -54,7 +54,9 @@ public class Deck {
     }
     private Card[] makeDeck(int suitNumber, int cardsPerSuit,boolean aceHigh){
         cards=new Card[suitNumber*cardsPerSuit];
+        int shapeCount=0;
         for(int l=1;l<=suitNumber;l++){
+            int cardAmount=l*cardsPerSuit;
             if(l==1 || l==2){
                 this.color="black";
                 if(l==1){
@@ -73,62 +75,69 @@ public class Deck {
                     this.symbol="heart";
                 }
             }
-            for(int a=0;a<this.cards.length;a++){
+            else{
+                shapeCount++;
+                if(l%2==0){
+                    this.color="black";
+                }
+                else{
+                    this.color="red";
+                }
+                this.symbol="shape"+shapeCount;
+            }
                 if(aceHigh==true){
                     int value=1;
-                    for(int n=0;n<cardsPerSuit;n++){
-                        if(n<cardsPerSuit-4){
+                    for(int n=cardAmount-cardsPerSuit;n<cardAmount;n++){
+                        if(n<cardAmount-4){
                             value++;
                             this.rank=value+"";
-                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);                            
+                            this.cards[n]=new Card(this.color, this.rank, this.symbol, value, true);                            
                         }
-                        else if(n==cardsPerSuit-4){
+                        else if(n==cardAmount-4){
                             this.rank="jack";
-                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
+                            this.cards[n]=new Card(this.color, this.rank, this.symbol, value+1, true);
                         }
-                        else if(n==cardsPerSuit-3){
+                        else if(n==cardAmount-3){
                             this.rank="queen";
-                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
+                            this.cards[n]=new Card(this.color, this.rank, this.symbol, value+2, true);
                         }
-                        else if(n==cardsPerSuit-2){
+                        else if(n==cardAmount-2){
                             this.rank="king";
-                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
+                            this.cards[n]=new Card(this.color, this.rank, this.symbol, value+3, true);
                         }
-                        else if(n==cardsPerSuit-1){
+                        else if(n==cardAmount-1){
                             this.rank="ace";
-                            this.cards[a*l]=new Card(this.color, this.rank, this.symbol, n+1, true);
+                            this.cards[n]=new Card(this.color, this.rank, this.symbol, value+4, true);
                         }
                     }
                 }
             else if(aceHigh==false){
                 int value2=1;
-                for(int p=0;p<cardsPerSuit;p++){
-                    if(p==0){
+                for(int p=cardAmount-cardsPerSuit;p<cardAmount;p++){
+                    if(p==cardAmount-cardsPerSuit){
                         this.rank="ace";
-                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
+                        this.cards[p]=new Card(this.color, this.rank, this.symbol, value2, true);
                     }
-                    else if(p<cardsPerSuit-3){
+                    else if(p<cardAmount-3){
                         value2++;
                         this.rank=value2+"";
-                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
+                        this.cards[p]=new Card(this.color, this.rank, this.symbol, value2, true);
                     }
-                    else if(p==cardsPerSuit-3){
+                    else if(p==cardAmount-3){
                         this.rank="jack";
-                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
+                        this.cards[p]=new Card(this.color, this.rank, this.symbol, value2+1, true);
                     }
-                    else if(p==cardsPerSuit-2){
+                    else if(p==cardAmount-2){
                         this.rank="queen";
-                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
+                        this.cards[p]=new Card(this.color, this.rank, this.symbol, value2+2, true);
                     }
-                    else if(p==cardsPerSuit-1){
+                    else if(p==cardAmount-1){
                         this.rank="king";
-                        this.cards[a*l]=new Card(this.color, this.rank, this.symbol, p+1, true);
+                        this.cards[p]=new Card(this.color, this.rank, this.symbol, value2+3, true);
                     }
                 }
             }                
             }
-    }
-    System.out.println(this.cards);
     return this.cards;
 }
     public String toString(){

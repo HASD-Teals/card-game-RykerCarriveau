@@ -64,12 +64,12 @@ public class Card {
         System.out.println("Is Card Playable?: "+this.playable);
         return "";
     }
-    public void equals(Card card1, Card card2){
-        if(card1.getValue()==card2.getValue()){
-            System.out.println("They are equal");
+    public boolean equals(Card card1, Card card2){
+        if(card1.getValue()==card2.getValue()&&card1.getRank()==card2.getRank()&&card1.getColor()==card2.getColor()&&card1.getPlayable()==card2.getPlayable()&&card1.getSymbol()==card2.getSymbol()){
+            return true;
         }
         else{
-            System.out.println("They aren't equal");
-        }
+            return false;
+                }
     }
 }
